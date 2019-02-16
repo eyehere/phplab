@@ -41,7 +41,7 @@ class Di
 
 		//检测有没有注册
 		if( !isset(self::$_bindings[$name]) ) {
-			throw new \Pol\Exception\DiFailed('('.$name.') not found');
+			return null;
 		}
 		
 		$concrete 	= self::$_bindings[$name]['class'];  //对象具体注册内容
