@@ -15,14 +15,25 @@ namespace Pol\Log;
 class PolMonitor
 {
 	//db连接错误
-	const DB_CONNECT_ERROR = 'DB_CONNECT_ERROR';
+	const DB_CONNECT_EXCEPTION	= 'DB_CONNECT_EXCEPTION';
+	
+	//db调用方法不存在
+	const DB_METHOD_UNKNOWN 	= 'DB_METHOD_UNKNOWN';
+	
+	//statement调用方法不存在
+	const DB_STATEMENT_UNKMOWN 	= 'DB_STATEMENT_UNKNOWN';
+	
+	//SQL执行异常
+	const DB_EXEC_EXCEPTION		= 'DB_EXEC_EXCEPTION';
 	
 	/**
 	 * 监控对照表
 	 * @var array
 	 */
 	protected static $_monitorMap = array(
-			self::DB_CONNECT_ERROR	=> false,
+			self::DB_CONNECT_EXCEPTION	=> false,
+			self::DB_METHOD_UNKNOWN		=> false,
+			self::DB_STATEMENT_UNKMOWN 	=> false,
 	);
 	
 	/**
