@@ -26,6 +26,24 @@ class PolMonitor
 	//SQL执行异常
 	const DB_EXEC_EXCEPTION		= 'DB_EXEC_EXCEPTION';
 	
+	//MC add servers exception
+	const MC_ADD_SERVERS_EXCEPTION = 'MC_ADD_SERVERS_EXCEPTION';
+	
+	//MC调用异常
+	const MC_CALL_EXCEPTION		= 'MC_CALL_EXCEPTION';
+	
+	//redis配置异常
+	const REDIS_CONF_EXCEPTION = 'REDIS_CONF_EXCEPTION';
+	
+	//redis方法没找到
+	const REDIS_METHOD_NOT_EXIST = 'REDIS_METHOD_NOT_EXIST';
+	
+	//redis连接异常
+	const REDIS_CONNECT_EXCEPTION = 'REDIS_CONNECT_EXCEPTION';
+	
+	//redis调用失败
+	const REDIS_CALL_EXCEPTION = 'REDIS_CALL_EXCEPTION';
+	
 	/**
 	 * 监控对照表
 	 * @var array
@@ -34,6 +52,12 @@ class PolMonitor
 			self::DB_CONNECT_EXCEPTION	=> false,
 			self::DB_METHOD_UNKNOWN		=> false,
 			self::DB_STATEMENT_UNKMOWN 	=> false,
+			self::MC_ADD_SERVERS_EXCEPTION	=> false,
+			self::MC_CALL_EXCEPTION		=> false,
+			self::REDIS_CONF_EXCEPTION	=> false,
+			self::REDIS_METHOD_NOT_EXIST=> false,
+			self::REDIS_CONNECT_EXCEPTION=> false,
+			self::REDIS_CALL_EXCEPTION	=> false,
 	);
 	
 	/**
