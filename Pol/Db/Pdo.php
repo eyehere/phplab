@@ -3,8 +3,8 @@
  * +----------------------------------------------------------------------+
  * | Pol (php optional library)                                           |
  * +----------------------------------------------------------------------+
- * | 数据库类：数据库主从、事务、日志及监控									  |
- * | 		PDO_MySQL                                                     |
+ * | 数据库类：数据库主从、事务、日志及监控									      |
+ * | 		PDO_MySQL (高可用配合DNS和数据库中间件使用) 暂时未加连接重试           |
  * +----------------------------------------------------------------------+
  * | Author: Weijun Lu  <yiming_6weijun@163.com>                          |
  * +----------------------------------------------------------------------+
@@ -90,6 +90,11 @@ class Pdo
 		if ( !class_exists('\PDO') ) {
 			throw new \Pol\Exception\PdoFailed('class \\PDO is not exists');
 		}
+		
+		if ( !isset($config[self::M]) || !isset($config[self::S]) ) {
+			throw new \Pol\Exception\PdoFailed('PdoConfigIsError:'.json_encode($this->_conf));
+		}
+		
 		$this->_conf = $config;
 	}
 
@@ -158,32 +163,22 @@ class Pdo
 	{
 		//连接已创建则直接返回
 		if ( isset($this->_dbPool[$type]) ) {
-			$num 	= count($this->_dbPool[$type]);
-			$index 	= ($num > 1) ? mt_rand(0,$num-1) : 0;
-			$this->_dbh = $this->_dbPool[$type][$index];
+			$this->_dbh = $this->_dbPool[$type];
 			return $this->_dbh;
 		}
 
-		//创建新的连接池
-		if ( !isset($this->_conf[$type]) ) {
-			throw new \Pol\Exception\PdoFailed('PdoConfigIsError:'.json_encode($this->_conf));
-		}
+		//创建新的连接
 		$config 	= $this->_conf[$type];
-		$hostArr 	= explode(',',$config['host']);
-		shuffle($hostArr);
-		foreach ( $hostArr as $host ) {
-			$conf = $config;
-			$conf['host'] = $host;
-			$link = $this->connect($conf);
-			if( $link ) {
-				$this->_dbPool[$type][] = $link;
-				break;
-			}
+		$link = $this->connect($config);
+		if( $link ) {
+			$this->_dbPool[$type] = $link;
+			$link = null;
 		}
-		$link = null;
+		
 		if ( isset($this->_dbPool[$type]) ) {
-			$this->_dbh = $this->_dbPool[$type][0];
+			$this->_dbh = $this->_dbPool[$type];
 		}
+		
 		return $this->_dbh;
 	}
 
