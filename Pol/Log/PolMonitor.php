@@ -44,6 +44,9 @@ class PolMonitor
 	//redis调用失败
 	const REDIS_CALL_EXCEPTION = 'REDIS_CALL_EXCEPTION';
 	
+	//http调用失败
+	const HTTP_CALL_EXCEPTION = 'HTTP_CALL_EXCEPTION';
+	
 	/**
 	 * 监控对照表
 	 * @var array
@@ -58,6 +61,7 @@ class PolMonitor
 			self::REDIS_METHOD_NOT_EXIST=> false,
 			self::REDIS_CONNECT_EXCEPTION=> false,
 			self::REDIS_CALL_EXCEPTION	=> false,
+			self::HTTP_CALL_EXCEPTION	=> false,
 	);
 	
 	/**
