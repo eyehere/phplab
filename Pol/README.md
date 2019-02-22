@@ -238,7 +238,7 @@
                 )
        )
 
-** 4. NoSQL **
+**4. NoSQL**
 
     demo:
         //配置
@@ -256,8 +256,8 @@
             //do something
         }
 
-** 5. Rpc 调用协议 **
-    
+**5. Rpc 调用协议**
+
     http调用示例
     DI::setShared('httpClient',function(){
         return new \Pol\Rpc\Http\Client();
@@ -285,13 +285,15 @@
     $multi->register('aa', $objA)->register('bb', $objB);
     $ret = $multi->execute();
 
-** 6. Log **
+**6. Log**
 
     
 
 
             
-** 7. 参数校验 **
+
+**7. 参数校验**
+
 ### 配置示例
     protected $_paramInfos = array(
         //签名
